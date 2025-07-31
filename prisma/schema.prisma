@@ -58,6 +58,7 @@ model Student {
 
   grade          Grade?
   section        Section?
+  batch          Batch?
   attendanceDate AttendanceDate[]
 }
 
@@ -86,6 +87,15 @@ model AttendanceDate {
 
   //relation
   student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+  studentId String  @unique
+}
+
+model Batch {
+  batchId String   @id @default(uuid())
+  year    DateTime
+
+  //relation
+  student   Student @relation(fields: [studentId], references: [studentId])
   studentId String  @unique
 }
 
