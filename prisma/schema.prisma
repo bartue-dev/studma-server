@@ -6,10 +6,93 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Account {
+  accountId String @id @default(uuid())
+  firstname String @unique
+  lastname  String
+  username  String @unique
+  password  String
+
+  teacher      Teacher?
+  refreshToken RefreshToken[]
+}
+
+model RefreshToken {
+  refreshTokenId String   @id @default(uuid())
+  refreshToken   String?
+  expiresAt      DateTime
+
+  //relation
+  account   Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
+  accountId String
+}
+
+model Teacher {
+  teacherId String @id @default(uuid())
+
+  //relation
+  account   Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
+  accountId String  @unique
+
+  student Student[]
+}
+
+model Student {
+  studentId String   @id @default(uuid())
+  firstname String
+  lastname  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //relation
+  teacher   Teacher @relation(fields: [teacherId], references: [teacherId])
+  teacherId String
+
+  grade          Grade?
+  section        Section?
+  attendanceDate AttendanceDate[]
+}
+
+model Grade {
+  gradeId String @id @default(uuid())
+  grade   String
+
+  //relation
+  student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+  studentId String  @unique
+}
+
+model Section {
+  sectionId String @id @default(uuid())
+  section   String
+
+  //relation
+  student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+  studentId String  @unique
+}
+
+model AttendanceDate {
+  attendanceDateId String   @id @default(uuid())
+  date             DateTime @unique
+  status           Status
+
+  //relation
+  student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+  studentId String  @unique
+}
+
+//for AttendaceDate status field
+enum Status {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSE
 }
