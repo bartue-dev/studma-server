@@ -43,9 +43,10 @@ export const refreshToken = asyncHandler(async(req, res, next) => {
         return;
       }
 
-      if (err || currentAccountByToken.accountId !== decoded) {
-        const err = new CustomErr("Current account and decoded not match", 403);
-        next(err);
+      if (err || currentAccountByToken.accountId !== decoded.id) {
+        console.log("Error", err)
+        const customErr = new CustomErr("Current account and decoded not match", 403);
+        next(customErr);
         return;
       }
 
