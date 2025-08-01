@@ -21,6 +21,26 @@ class Account {
       }
     })
   }
+
+  async currentAccountByUsername(username) {
+    return await prisma.account.findUnique({
+      where: {
+        username: username
+      }
+    });
+  }
+}
+
+class RefreshToken {
+  async saveRefreshToken(accountId, token) {
+    return await prisma.refreshToken.create({
+      data: {
+        accountId: accountId,
+        refreshToken: token,
+      }
+    });
+  }
 }
 
 export const accountMethods = new Account();
+export const refreshTokenMethods = new RefreshToken();
