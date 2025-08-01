@@ -26,9 +26,8 @@ model Account {
 }
 
 model RefreshToken {
-  refreshTokenId String   @id @default(uuid())
+  refreshTokenId String  @id @default(uuid())
   refreshToken   String?
-  expiresAt      DateTime
 
   //relation
   account   Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
