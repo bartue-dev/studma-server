@@ -16,7 +16,7 @@ datasource db {
 
 model Account {
   accountId String @id @default(uuid())
-  firstname String @unique
+  firstname String
   lastname  String
   username  String @unique
   password  String
@@ -37,6 +37,9 @@ model RefreshToken {
 
 model Teacher {
   teacherId String @id @default(uuid())
+  firstname String
+  lastname  String
+  username  String @unique
 
   //relation
   account   Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
