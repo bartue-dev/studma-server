@@ -7,6 +7,7 @@ import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
 import {loginRoute, refreshTokenRoute, registerRoute} from "./routes/index.js"
+import { verifyJwt } from "./middleware/verifyJwt.js";
 
 dotenv.config();
 const app = express();
@@ -42,6 +43,18 @@ app.use(cookieParser());
 app.use("/v1/register", registerRoute);
 app.use("/v1/login", loginRoute);
 app.use("/v1/refreshToken", refreshTokenRoute);
+
+//check user
+app.use(verifyJwt)
+
+//api's
+app.get("/v1/testing", (req, res, next) => {
+  res.status(200).json({
+    status: "Success",
+    message: "Lezzgowww"
+  });
+});
+
 
 
 // default route
