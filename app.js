@@ -6,7 +6,7 @@ import credentials from "./middleware/credentials.js";
 import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
-import {registerRoute} from "./routes/index.js"
+import {loginRoute, registerRoute} from "./routes/index.js"
 
 dotenv.config();
 const app = express();
@@ -38,7 +38,9 @@ app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
 
 //api routes here!
-app.use("/v1/register", registerRoute)
+//auth endpoints
+app.use("/v1/register", registerRoute);
+app.use("/v1/login", loginRoute)
 
 
 // default route
