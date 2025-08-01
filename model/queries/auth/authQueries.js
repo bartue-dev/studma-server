@@ -40,6 +40,12 @@ class RefreshToken {
       }
     });
   }
+
+ async currentAccountByToken(refreshToken) {
+  return await prisma.refreshToken.findFirst({
+    where: { refreshToken: refreshToken}
+  })
+ }
 }
 
 export const accountMethods = new Account();
