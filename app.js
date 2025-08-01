@@ -6,7 +6,7 @@ import credentials from "./middleware/credentials.js";
 import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
-import {loginRoute, refreshTokenRoute, registerRoute} from "./routes/index.js"
+import {loginRoute, logoutRoute, refreshTokenRoute, registerRoute} from "./routes/index.js"
 import { verifyJwt } from "./middleware/verifyJwt.js";
 
 dotenv.config();
@@ -43,8 +43,9 @@ app.use(cookieParser());
 app.use("/v1/register", registerRoute);
 app.use("/v1/login", loginRoute);
 app.use("/v1/refreshToken", refreshTokenRoute);
+app.use("/v1/logout", logoutRoute)
 
-//check user
+//verify user before access api's
 app.use(verifyJwt)
 
 //api's
@@ -54,7 +55,6 @@ app.get("/v1/testing", (req, res, next) => {
     message: "Lezzgowww"
   });
 });
-
 
 
 // default route
