@@ -58,3 +58,21 @@ export const getStudent = [validateGetStudent, asyncHandler(async(req, res, next
     studentData: studentData
   });
 })];
+
+export const getAllStudent = asyncHandler(async(req, res, next) => {
+  const teacherId = req.params.id;
+
+  const studentData = await studentMethods.getAllStudent(teacherId);
+
+  if (!studentData) {
+    const err = new CustomErr("Retrive student data failed, custom error", 400);
+    next(err);
+    return
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Student data retrieve successfully",
+    studentData: studentData
+  })
+});
