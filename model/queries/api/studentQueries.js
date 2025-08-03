@@ -10,6 +10,12 @@ class Student {
       }
     })
   }
+
+  async getStudent(studentId) {
+    return await prisma.student.findUnique({
+      where: { studentId: studentId }
+    })
+  }
 }
 
 
