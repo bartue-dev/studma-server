@@ -42,6 +42,7 @@ model Teacher {
 
   //relation
   account   Account @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
+  //accountId act as teacherId for queries cause the current user which is the account model is the teacher
   accountId String  @unique
 
   student Student[]
@@ -55,8 +56,8 @@ model Student {
   updatedAt DateTime @updatedAt
 
   //relation
-  teacher   Teacher @relation(fields: [teacherId], references: [teacherId])
-  teacherId String
+  teacher   Teacher @relation(fields: [accountId], references: [accountId])
+  accountId String
 
   grade          Grade?
   section        Section?
