@@ -16,6 +16,12 @@ class Student {
       where: { studentId: studentId }
     })
   }
+
+  async getAllStudent(teacherId) {
+    return await prisma.student.findMany({
+      where: { accountId: teacherId }
+    })
+  }
 }
 
 
