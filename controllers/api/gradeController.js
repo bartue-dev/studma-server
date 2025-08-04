@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { validateCreateGrade } from "../../validator/gradeValidator.js";
+import { validateCreateGrade, validateGradeId } from "../../validator/gradeValidator.js";
 import { validationResult } from "express-validator";
 import { gradeMethods } from "../../model/queries/api/gradeQueries.js";
 import CustomErr from "../../helper/customErr.js";
@@ -51,3 +51,32 @@ export const getAllGrade = asyncHandler(async(req, res, next) => {
     gradeData: gradeData
   })
 });
+
+export const getGrade = [validateGradeId, asyncHandler(async(req, res, next) => {
+  const { gradeId } = req.params;
+  const validationRes = validationResult(req);
+
+  console.log("Request", req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to get specific grade data, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const gradeData = await gradeMethods.getGrade(gradeId);
+
+  if (!gradeData) {
+    const err = new CustomErr("Failed to get specific grade data, custom error")
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Grade data retrieve successfully",
+    gradeData: gradeData
+  })
+})];
