@@ -33,3 +33,21 @@ export const createGrade = [validateCreateGrade, asyncHandler(async(req, res, ne
     gradeData: gradeData
   });
 })];
+
+export const getAllGrade = asyncHandler(async(req, res, next) => {
+  const teacherId = req.user.id;
+
+  const gradeData = await gradeMethods.getAllGrade(teacherId);
+
+  if (!gradeData) {
+    const err = new CustomErr("Failed to retrieve all grade data, custom error");
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Grade data retrieve successfully",
+    gradeData: gradeData
+  })
+});
