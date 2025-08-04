@@ -8,19 +8,26 @@ class Student {
         lastname: lastname,
         accountId: teacherId
       }
-    })
+    });
   }
 
   async getStudent(studentId) {
     return await prisma.student.findUnique({
       where: { studentId: studentId }
-    })
+    });
   }
 
   async getAllStudent(teacherId) {
     return await prisma.student.findMany({
       where: { accountId: teacherId }
-    })
+    });
+  }
+
+  async updateStudent(studentId, firstname, lastname) {
+    return await prisma.student.update({
+      where: { studentId: studentId },
+      data: { firstname: firstname, lastname: lastname}
+    });
   }
 }
 
