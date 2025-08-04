@@ -93,7 +93,7 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
   const studentData = await studentMethods.updateStudent(studentId, firstname, lastname);
 
   if (!studentData) {
-    const err = new CustomErr("Failed to update student, custom error")
+    const err = new CustomErr("Failed to update student, custom error", 400)
     next(err);
     return;
   }
@@ -120,7 +120,7 @@ export const deleteStudent = [validateStudentId, asyncHandler(async(req, res, ne
   const studentData = await studentMethods.deleteStudent(studentId);
 
   if (!studentData) {
-    const err = new CustomErr("Failed to delete student, custom error");
+    const err = new CustomErr("Failed to delete student, custom error", 400);
     next(err);
     return;
   }
