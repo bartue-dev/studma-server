@@ -107,3 +107,27 @@ export const updateGrade = [validateUpdateGrade, asyncHandler(async(req, res, ne
   });
   
 })];
+
+
+export const deleteGrade = [validateGradeId, asyncHandler(async(req, res, next) => {
+  const { gradeId } = req.params;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to delete grade data, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const gradeData = await gradeMethods.deleteGrade(gradeId);
+
+  if (!gradeData) {
+    const err = new CustomErr("Failed to delete grade data, custom error", 400)
+    next(err);
+    return;
+  }
+
+  res.sendStatus(204)
+})];
