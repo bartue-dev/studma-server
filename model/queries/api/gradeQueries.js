@@ -22,6 +22,13 @@ class Grade {
       where: { gradeId: gradeId }
     })
   }
+
+  async updateGrade(gradeId, grade) {
+    return await prisma.grade.update({
+      where: {gradeId: gradeId},
+      data: {grade: grade}
+    })
+  }
 }
 
 export const gradeMethods = new Grade();
