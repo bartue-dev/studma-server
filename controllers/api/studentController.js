@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { validateCreateStudent, validateGetStudent, validateUpdateStudent } from "../../validator/studentValidator.js";
+import { validateCreateStudent, validateStudentId, validateUpdateStudent } from "../../validator/studentValidator.js";
 import { validationResult } from "express-validator";
 import { studentMethods } from "../../model/queries/api/studentQueries.js";
 import CustomErr from "../../helper/customErr.js";
@@ -32,7 +32,7 @@ export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res
   });
 })];
 
-export const getStudent = [validateGetStudent, asyncHandler(async(req, res, next) => {
+export const getStudent = [validateStudentId, asyncHandler(async(req, res, next) => {
   const { studentId } = req.params;
   const paramValidation = validationResult(req);
 
@@ -103,4 +103,27 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
     message: "Student data updated successfully",
     studentData: studentData
   })
+})];
+
+export const deleteStudent = [validateStudentId, asyncHandler(async(req, res, next) => {
+  const { studentId } = req.params;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Delete student data failed, validation error",
+      error: validationRes.array()
+    })
+  }
+
+  const studentData = await studentMethods.deleteStudent(studentId);
+
+  if (!studentData) {
+    const err = new CustomErr("Delete Student data failed, custom error");
+    next(err);
+    return;
+  }
+
+  res.sendStatus(204)
 })];
