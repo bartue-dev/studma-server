@@ -16,3 +16,15 @@ export const validateGetStudent = [
     .exists().withMessage("studentId doens't exist")
     .isUUID().withMessage("studentId is not valid UUID")
 ]
+
+export const validateUpdateStudent = [
+  body("firstname").trim()
+    .notEmpty().withMessage(`Firstname ${isEmpty}`)
+    .isLength({min: 2}).withMessage("Firstname must be atleast 2 characters or more"),
+  body("lastname").trim()
+    .notEmpty().withMessage(`Lastname ${isEmpty}`)
+    .isLength({min: 2}).withMessage("Lastname must be atleast 2 characters or more"),
+  param("studentId")
+    .exists().withMessage("studentId doens't exist")
+    .isUUID().withMessage("studentId is not valid UUID")
+]
