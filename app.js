@@ -6,7 +6,7 @@ import credentials from "./middleware/credentials.js";
 import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
-import {loginRoute, logoutRoute, refreshTokenRoute, registerRoute, studentRoute} from "./routes/index.js"
+import {gradeRoute, loginRoute, logoutRoute, refreshTokenRoute, registerRoute, studentRoute} from "./routes/index.js"
 import { verifyJwt } from "./middleware/verifyJwt.js";
 
 dotenv.config();
@@ -55,7 +55,8 @@ app.get("/v1/testing", (req, res, next) => {
     message: "Lezzgowww"
   });
 });
-app.use("/v1/student", studentRoute)
+app.use("/v1/student", studentRoute);
+app.use("/v1/grade", gradeRoute)
 
 
 // default route
