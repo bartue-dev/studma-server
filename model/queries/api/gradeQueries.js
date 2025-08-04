@@ -16,6 +16,12 @@ class Grade {
       where: {accountId: teacherId}
     })
   }
+
+  async getGrade(gradeId) {
+    return await prisma.grade.findUnique({
+      where: { gradeId: gradeId }
+    })
+  }
 }
 
 export const gradeMethods = new Grade();
