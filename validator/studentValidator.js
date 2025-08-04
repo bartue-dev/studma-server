@@ -11,7 +11,7 @@ export const validateCreateStudent = [
     .isLength({min: 2}).withMessage("Lastname must be atleast 2 characters or more"),
 ]
 
-export const validateGetStudent = [
+export const validateStudentId = [
   param("studentId")
     .exists().withMessage("studentId doens't exist")
     .isUUID().withMessage("studentId is not valid UUID")
