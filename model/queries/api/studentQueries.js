@@ -29,6 +29,12 @@ class Student {
       data: { firstname: firstname, lastname: lastname}
     });
   }
+
+  async deleteStudent(studentId) {
+    return await prisma.student.delete({
+      where: { studentId: studentId}
+    })
+  }
 }
 
 
