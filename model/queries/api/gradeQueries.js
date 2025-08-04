@@ -29,6 +29,12 @@ class Grade {
       data: {grade: grade}
     })
   }
+
+  async deleteGrade(gradeId) {
+    return await prisma.grade.delete({
+      where: { gradeId: gradeId}
+    })
+  }
 }
 
 export const gradeMethods = new Grade();
