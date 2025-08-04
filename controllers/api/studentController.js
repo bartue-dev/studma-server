@@ -12,7 +12,7 @@ export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res
   if (!reqValidation.isEmpty()) {
     return res.status(400).json({
       status: "Failed",
-      message: "Create Student failed, validation error",
+      message: "Failed to create student, validation error",
       error: reqValidation.array()
     });
   }
@@ -20,7 +20,7 @@ export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res
   const studentData = await studentMethods.createStudent(firstname, lastname, teacherId);
 
   if (!studentData) {
-    const err = CustomErr("Create Student failed, custom error", 400);
+    const err = CustomErr("Failed to create student, custom error", 400);
     next(err);
     return;
   }
@@ -39,7 +39,7 @@ export const getStudent = [validateStudentId, asyncHandler(async(req, res, next)
   if (!paramValidation.isEmpty()) {
     return res.status(400).json({
       status: "Failed",
-      message: "Retrive student data failed, validation error",
+      message: "Failed to retrieve student, validation error",
       error: paramValidation.array()
     });
   }
@@ -47,7 +47,7 @@ export const getStudent = [validateStudentId, asyncHandler(async(req, res, next)
   const studentData = await studentMethods.getStudent(studentId);
 
   if (!studentData) {
-    const err = new CustomErr("Retrive student data failed, custom error", 400)
+    const err = new CustomErr("Failed to retrieve student, custom error", 400)
     next(err);
     return;
   }
@@ -65,7 +65,7 @@ export const getAllStudent = asyncHandler(async(req, res, next) => {
   const studentData = await studentMethods.getAllStudent(teacherId);
 
   if (!studentData) {
-    const err = new CustomErr("Retrive student data failed, custom error", 400);
+    const err = new CustomErr("Failed to retrieve student, custom error", 400);
     next(err);
     return
   }
@@ -85,7 +85,7 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
   if (!validationRes.isEmpty()) {
     return res.status(400).json({
       status: "Failed",
-      message: "Update Student failed, validation error",
+      message: "Failed to update student, validation error",
       error: validationRes.array()
     });
   }
@@ -93,7 +93,7 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
   const studentData = await studentMethods.updateStudent(studentId, firstname, lastname);
 
   if (!studentData) {
-    const err = new CustomErr("Update student failed, custom error")
+    const err = new CustomErr("Failed to update student, custom error")
     next(err);
     return;
   }
@@ -112,7 +112,7 @@ export const deleteStudent = [validateStudentId, asyncHandler(async(req, res, ne
   if (!validationRes.isEmpty()) {
     return res.status(400).json({
       status: "Failed",
-      message: "Delete student data failed, validation error",
+      message: "Failed to delete student, validation error",
       error: validationRes.array()
     })
   }
@@ -120,7 +120,7 @@ export const deleteStudent = [validateStudentId, asyncHandler(async(req, res, ne
   const studentData = await studentMethods.deleteStudent(studentId);
 
   if (!studentData) {
-    const err = new CustomErr("Delete Student data failed, custom error");
+    const err = new CustomErr("Failed to delete student, custom error");
     next(err);
     return;
   }
