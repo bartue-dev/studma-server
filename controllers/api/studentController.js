@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { validateCreateStudent, validateGetStudent } from "../../validator/studentValidator.js";
+import { validateCreateStudent, validateGetStudent, validateUpdateStudent } from "../../validator/studentValidator.js";
 import { validationResult } from "express-validator";
 import { studentMethods } from "../../model/queries/api/studentQueries.js";
 import CustomErr from "../../helper/customErr.js";
@@ -76,3 +76,31 @@ export const getAllStudent = asyncHandler(async(req, res, next) => {
     studentData: studentData
   })
 });
+
+export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res, next) => {
+  const { studentId } = req.params;
+  const { firstname, lastname } = req.body;
+  const validationRes = validationResult(req)
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Update Student failed, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const studentData = await studentMethods.updateStudent(studentId, firstname, lastname);
+
+  if (!studentData) {
+    const err = new CustomErr("Update student failed, custom error")
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Student data updated successfully",
+    studentData: studentData
+  })
+})];
