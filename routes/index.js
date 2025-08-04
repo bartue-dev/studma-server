@@ -6,12 +6,14 @@ import { router as logoutRoute } from "./auth/logout.js"
 
 //api
 import { router as studentRoute} from "./api/student.js"
+import { router as gradeRoute } from "./api/grade.js"
 
 export {
   registerRoute,
   loginRoute,
   refreshTokenRoute,
   logoutRoute,
-  studentRoute
+  studentRoute,
+  gradeRoute
 };
 
