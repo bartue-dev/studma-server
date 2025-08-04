@@ -10,6 +10,12 @@ class Grade {
       }
     });
   }
+
+  async getAllGrade(teacherId) {
+    return await prisma.grade.findMany({
+      where: {accountId: teacherId}
+    })
+  }
 }
 
 export const gradeMethods = new Grade();
