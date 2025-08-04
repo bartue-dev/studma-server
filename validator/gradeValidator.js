@@ -15,3 +15,11 @@ export const validateGradeId = [
     .exists().withMessage("gradeId doesn't exist")
     .isUUID().withMessage("gradeId is not a valid UUID")
 ]
+
+export const validateUpdateGrade = [
+  body("grade").trim()
+    .notEmpty().withMessage(`Grade ${isEmpty}`),
+  param("gradeId")
+    .exists().withMessage("gradeId doesn't exist")
+    .isUUID().withMessage("gradeId is not a valid UUID")
+]
