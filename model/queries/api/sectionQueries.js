@@ -9,6 +9,12 @@ class Section {
         accountId: teacherId
     }})
   }
+
+  async getAllSection(teacherId) {
+    return await prisma.section.findMany({
+      where: { accountId: teacherId }
+    })
+  }
 }
 
 export const sectionMethods = new Section();
