@@ -32,3 +32,21 @@ export const createSection = [validateCreateSection, asyncHandler(async(req, res
     sectionData: sectionData
   })
 })];
+
+export const getAllSection = asyncHandler(async(req, res, next) => {
+  const teacherId = req.user.id;
+
+  const sectionData = await sectionMethods.getAllSection(teacherId);
+
+  if (!sectionData) {
+    const err = new CustomErr("Failed to get all section data, custom error", 400);
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Success",
+    message: "Retrieve all section data successfully",
+    sectionData: sectionData
+  })
+})
