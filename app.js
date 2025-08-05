@@ -6,8 +6,8 @@ import credentials from "./middleware/credentials.js";
 import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
-import {gradeRoute, loginRoute, logoutRoute, refreshTokenRoute, registerRoute, studentRoute} from "./routes/index.js"
 import { verifyJwt } from "./middleware/verifyJwt.js";
+import {gradeRoute, loginRoute, logoutRoute, refreshTokenRoute, registerRoute, sectionRoute, studentRoute} from "./routes/index.js"
 
 dotenv.config();
 const app = express();
@@ -49,14 +49,9 @@ app.use("/v1/logout", logoutRoute)
 app.use(verifyJwt)
 
 //api's
-app.get("/v1/testing", (req, res, next) => {
-  res.status(200).json({
-    status: "Success",
-    message: "Lezzgowww"
-  });
-});
 app.use("/v1/student", studentRoute);
-app.use("/v1/grade", gradeRoute)
+app.use("/v1/grade", gradeRoute);
+app.use("/v1/section", sectionRoute);
 
 
 // default route
