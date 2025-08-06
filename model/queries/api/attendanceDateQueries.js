@@ -37,6 +37,12 @@ class AttendanceDate {
       }
     })
   }
+
+  async deleteAttendanceDate(attendanceDateId) {
+    return await prisma.attendanceDate.delete({
+      where: { attendanceDateId: attendanceDateId }
+    })
+  }
 }
 
 export const attendanceDateMethods = new AttendanceDate()
