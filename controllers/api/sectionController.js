@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { validateCreateSection, validateSectionId } from "../../validator/sectionValidator.js";
+import { validateCreateSection, validateSectionId, validateUpdateSection } from "../../validator/sectionValidator.js";
 import { validationResult } from "express-validator";
 import { sectionMethods } from "../../model/queries/api/sectionQueries.js";
 import CustomErr from "../../helper/customErr.js";
@@ -49,7 +49,7 @@ export const getAllSection = asyncHandler(async(req, res, next) => {
     message: "Retrieve all section data successfully",
     sectionData: sectionData
   })
-})
+});
 
 export const getSection = [validateSectionId, asyncHandler(async(req, res, next) => {
   const { sectionId } = req.params;
@@ -76,4 +76,33 @@ export const getSection = [validateSectionId, asyncHandler(async(req, res, next)
     message: "Retrieve section data sucessfully",
     sectionData: sectionData
   });
-})]
+})];
+
+export const updateSection = [validateUpdateSection, asyncHandler(async(req, res, next) => {
+  const { sectionId } = req.params;
+  const { section } = req.body;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to update section data, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const sectionData = await sectionMethods.updateSection(sectionId, section);
+
+  if (!sectionData) {
+    const err = new CustomErr("Failed to update section data, custom error" ,400)
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Sucess",
+    message: "Section data updated successfully",
+    sectionData: sectionData
+  })
+
+})];
