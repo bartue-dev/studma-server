@@ -14,13 +14,27 @@ class AttendanceDate {
 
   async getAllAttendanceDate(teacherId) {
     return await prisma.attendanceDate.findMany({
-      where: { accountId: teacherId }
+      where: { accountId: teacherId },
+      include: {
+        student: true
+      }
     })
   }
 
   async getAttendanceDate(attendanceDateId) {
     return await prisma.attendanceDate.findUnique({
-      where: { attendanceDateId: attendanceDateId }
+      where: { attendanceDateId: attendanceDateId },
+      include: { student: true }
+    })
+  }
+
+  async updateAttendanceDate(date, status, attendanceDateId) {
+    return await prisma.attendanceDate.update({
+      where: { attendanceDateId: attendanceDateId },
+      data: {
+        date: date,
+        status: status
+      }
     })
   }
 }
