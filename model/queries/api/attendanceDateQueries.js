@@ -17,6 +17,12 @@ class AttendanceDate {
       where: { accountId: teacherId }
     })
   }
+
+  async getAttendanceDate(attendanceDateId) {
+    return await prisma.attendanceDate.findUnique({
+      where: { attendanceDateId: attendanceDateId }
+    })
+  }
 }
 
 export const attendanceDateMethods = new AttendanceDate()
