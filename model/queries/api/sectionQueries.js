@@ -30,6 +30,12 @@ class Section {
       }
     })
   }
+
+  async deleteSection(sectionId) {
+    return await prisma.section.delete({
+      where: {sectionId : sectionId}
+    })
+  }
 }
 
 export const sectionMethods = new Section();
