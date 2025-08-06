@@ -9,3 +9,9 @@ export const validateCreateSection = [
     .exists().withMessage("studentId doesnt exist")
     .isUUID().withMessage("studentId is not a valid UUID")
 ]
+
+export const validateSectionId = [
+  param("sectionId")
+    .exists().withMessage("sectionId doesnt exist")
+    .isUUID().withMessage("sectionId is not a valid UUID")
+]
