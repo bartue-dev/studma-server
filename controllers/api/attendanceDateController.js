@@ -31,4 +31,22 @@ export const createAttendanceDate = [validateCreateAttenceDate, asyncHandler(asy
     message: "Attendance date created successfully",
     attendanceDateData: attendanceDateData
   })
-})]
+})];
+
+export const getAllAttendanceDate = asyncHandler(async(req, res, next) => {
+  const teacherId = req.user.id;
+
+  const attendanceDateData = await attendanceDateMethods.getAllAttendanceDate(teacherId);
+
+  if (!attendanceDateData) {
+    const err = new CustomErr("Failed to get all attendance date data", 400)
+    next(err);
+    return;
+  }
+
+  res.status(200).json({
+    status: "Sucess",
+    message: "Retrieve all attendance date successfully",
+    attendanceDateData: attendanceDateData
+  })
+});
