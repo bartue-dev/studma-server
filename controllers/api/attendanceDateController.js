@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { validateCreateAttenceDate } from "../../validator/attenceDateValidator.js";
+import { validateAttendanceDateId, validateCreateAttenceDate } from "../../validator/attenceDateValidator.js";
 import { validationResult } from "express-validator";
 import { attendanceDateMethods } from "../../model/queries/api/attendanceDateQueries.js";
 import CustomErr from "../../helper/customErr.js";
@@ -50,3 +50,30 @@ export const getAllAttendanceDate = asyncHandler(async(req, res, next) => {
     attendanceDateData: attendanceDateData
   })
 });
+
+export const getAttendanceDate = [validateAttendanceDateId ,asyncHandler(async(req, res, next) => {
+  const { attendanceDateId } = req.params;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to get attendance date, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const attendanceDateData = await attendanceDateMethods.getAttendanceDate(attendanceDateId);
+
+  if (!attendanceDateData) {
+    const err = new CustomErr("Failed to get attendance date, custom error", 400);
+    next(err)
+    return
+  }
+
+  res.status(200).json({
+    status: "Sucess",
+    message: "Retirieve the attendance date successfully",
+    attendanceDateData: attendanceDateData
+  })
+})];
