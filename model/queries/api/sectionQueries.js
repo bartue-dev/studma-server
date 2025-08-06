@@ -15,6 +15,12 @@ class Section {
       where: { accountId: teacherId }
     })
   }
+
+  async getSection(sectionId) {
+    return await prisma.section.findUnique({
+      where: { sectionId: sectionId}
+    })
+  }
 }
 
 export const sectionMethods = new Section();
