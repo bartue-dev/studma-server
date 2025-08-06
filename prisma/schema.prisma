@@ -100,7 +100,7 @@ model AttendanceDate {
 
   //relation
   student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
-  studentId String  @unique
+  studentId String
 
   teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
   accountId String
