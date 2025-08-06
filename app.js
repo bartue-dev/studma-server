@@ -9,6 +9,7 @@ import errHandler from "./middleware/errorHandler.js";
 import { verifyJwt } from "./middleware/verifyJwt.js";
 import {
   attendanceDateRoute,
+  batchRoute,
   gradeRoute,
   loginRoute,
   logoutRoute,
@@ -62,6 +63,7 @@ app.use("/v1/student", studentRoute);
 app.use("/v1/grade", gradeRoute);
 app.use("/v1/section", sectionRoute);
 app.use("/v1/attendanceDate", attendanceDateRoute);
+app.use("/v1/batch", batchRoute);
 
 
 // default route
