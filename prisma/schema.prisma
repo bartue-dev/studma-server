@@ -94,8 +94,8 @@ model Section {
 }
 
 model AttendanceDate {
-  attendanceDateId String   @id @default(uuid())
-  date             DateTime @unique
+  attendanceDateId String @id @default(uuid())
+  date             String
   status           Status
 
   //relation
