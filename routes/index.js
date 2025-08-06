@@ -8,7 +8,7 @@ import { router as logoutRoute } from "./auth/logout.js"
 import { router as studentRoute} from "./api/student.js"
 import { router as gradeRoute } from "./api/grade.js"
 import { router as sectionRoute } from "./api/section.js"
-
+import { router as attendanceDateRoute } from "./api/attendanceDate.js"
 export {
   registerRoute,
   loginRoute,
@@ -16,6 +16,7 @@ export {
   logoutRoute,
   studentRoute,
   gradeRoute,
-  sectionRoute
+  sectionRoute,
+  attendanceDateRoute
 };
 
