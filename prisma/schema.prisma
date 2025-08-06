@@ -104,6 +104,8 @@ model AttendanceDate {
 
   teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
   accountId String
+
+  @@unique([studentId, date])
 }
 
 model Batch {
