@@ -13,13 +13,25 @@ class Student {
 
   async getStudent(studentId) {
     return await prisma.student.findUnique({
-      where: { studentId: studentId }
+      where: { studentId: studentId },
+      include: {
+        grade: { select: { grade: true }},
+        section: { select: { section: true }},
+        batch: { select : { year: true }},
+        attendanceDate: { select: { date: true, status: true }},
+      }
     });
   }
 
   async getAllStudent(teacherId) {
     return await prisma.student.findMany({
-      where: { accountId: teacherId }
+      where: { accountId: teacherId },
+      include: {
+        grade: { select: { grade: true }},
+        section: { select: { section: true }},
+        batch: { select : { year: true }},
+        attendanceDate: { select: { date: true, status: true }},
+      }
     });
   }
 
