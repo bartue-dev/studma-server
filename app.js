@@ -7,7 +7,16 @@ import corsOption from "./config/corsOptions.js";
 import CustomErr from "./helper/customErr.js";
 import errHandler from "./middleware/errorHandler.js";
 import { verifyJwt } from "./middleware/verifyJwt.js";
-import {gradeRoute, loginRoute, logoutRoute, refreshTokenRoute, registerRoute, sectionRoute, studentRoute} from "./routes/index.js"
+import {
+  attendanceDateRoute,
+  gradeRoute,
+  loginRoute,
+  logoutRoute,
+  refreshTokenRoute,
+  registerRoute,
+  sectionRoute,
+  studentRoute
+} from "./routes/index.js"
 
 dotenv.config();
 const app = express();
@@ -52,6 +61,7 @@ app.use(verifyJwt)
 app.use("/v1/student", studentRoute);
 app.use("/v1/grade", gradeRoute);
 app.use("/v1/section", sectionRoute);
+app.use("/v1/attendanceDate", attendanceDateRoute);
 
 
 // default route
