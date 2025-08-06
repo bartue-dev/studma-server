@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSection, getAllSection, getSection, updateSection } from "../../controllers/api/sectionController.js";
+import { createSection, deleteSection, getAllSection, getSection, updateSection } from "../../controllers/api/sectionController.js";
 const router = Router();
 
 router.route("/:studentId")
@@ -11,5 +11,6 @@ router.route("/")
 router.route("/:sectionId")
   .get(getSection)
   .put(updateSection)
+  .delete(deleteSection)
 
 export { router }
