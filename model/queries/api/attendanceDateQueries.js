@@ -11,6 +11,12 @@ class AttendanceDate {
       }
     })
   }
+
+  async getAllAttendanceDate(teacherId) {
+    return await prisma.attendanceDate.findMany({
+      where: { accountId: teacherId }
+    })
+  }
 }
 
 export const attendanceDateMethods = new AttendanceDate()
