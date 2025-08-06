@@ -21,6 +21,15 @@ class Section {
       where: { sectionId: sectionId}
     })
   }
+
+  async updateSection(sectionId, section) {
+    return await prisma.section.update({
+      where: {sectionId: sectionId},
+      data: {
+        section: section
+      }
+    })
+  }
 }
 
 export const sectionMethods = new Section();
