@@ -106,3 +106,26 @@ export const updateSection = [validateUpdateSection, asyncHandler(async(req, res
   })
 
 })];
+
+export const deleteSection = [validateSectionId, asyncHandler(async(req, res, next) => {
+  const { sectionId } = req.params;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to delete section data, validation error",
+      error: validationRes.array()
+    })
+  }
+
+  const sectionData = await sectionMethods.deleteSection(sectionId);
+
+  if (!sectionData) {
+    const err = new CustomErr("Failed to delete section data, custom error" ,400)
+    next(err);
+    return
+  }
+
+  res.sendStatus(204)
+})];
