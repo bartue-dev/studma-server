@@ -109,8 +109,8 @@ model AttendanceDate {
 }
 
 model Batch {
-  batchId String   @id @default(uuid())
-  year    DateTime
+  batchId String @id @default(uuid())
+  year    String
 
   //relation
   student   Student @relation(fields: [studentId], references: [studentId])
@@ -118,6 +118,8 @@ model Batch {
 
   teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
   accountId String
+
+  @@unique([studentId, year])
 }
 
 //for AttendaceDate status field
