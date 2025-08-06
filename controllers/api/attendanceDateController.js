@@ -105,3 +105,26 @@ export const updateAttendanceDate = [validateUpdateAttendanceDate, asyncHandler(
     attendanceDateData: attendanceDateData
   })  
 })];
+
+export const deleteAttendanceDate = [validateAttendanceDateId ,asyncHandler(async(req, res, next) => {
+  const { attendanceDateId } = req.params;
+  const validationRes = validationResult(req);
+
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({
+      status: "Failed",
+      message: "Failed to delete attendance date data, validation error",
+      error: validationRes.array()
+    });
+  }
+
+  const attendanceDateData = await attendanceDateMethods.deleteAttendanceDate(attendanceDateId);
+
+  if (!attendanceDateData) {
+    const err = new CustomErr("Failed to delete attendance date data, custom error", 400)
+    next(err);
+    return;
+  }
+
+  res.sendStatus(204)
+})];
