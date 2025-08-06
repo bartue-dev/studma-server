@@ -9,6 +9,8 @@ import { router as studentRoute} from "./api/student.js"
 import { router as gradeRoute } from "./api/grade.js"
 import { router as sectionRoute } from "./api/section.js"
 import { router as attendanceDateRoute } from "./api/attendanceDate.js"
+import { router as batchRoute } from "./api/batch.js"
+
 export {
   registerRoute,
   loginRoute,
@@ -17,6 +19,7 @@ export {
   studentRoute,
   gradeRoute,
   sectionRoute,
-  attendanceDateRoute
+  attendanceDateRoute,
+  batchRoute
 };
 
