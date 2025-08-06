@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAttendanceDate, getAllAttendanceDate, getAttendanceDate } from "../../controllers/api/attendanceDateController.js";
+import { createAttendanceDate, getAllAttendanceDate, getAttendanceDate, updateAttendanceDate } from "../../controllers/api/attendanceDateController.js";
 const router = Router();
 
 router.route("/student/:studentId")
@@ -10,5 +10,6 @@ router.route("/")
 
 router.route("/:attendanceDateId")
   .get(getAttendanceDate)
+  .put(updateAttendanceDate)
 
 export { router }
