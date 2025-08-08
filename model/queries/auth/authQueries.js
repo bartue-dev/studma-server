@@ -54,5 +54,14 @@ class RefreshToken {
  }
 }
 
+class Teacher {
+  async getTeacher(accountId) {
+    return await prisma.teacher.findUnique({
+      where: { accountId: accountId}
+    })
+  }
+}
+
 export const accountMethods = new Account();
 export const refreshTokenMethods = new RefreshToken();
+export const teacherMethods = new Teacher();
