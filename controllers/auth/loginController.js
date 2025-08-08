@@ -76,6 +76,8 @@ export const login = asyncHandler(async(req, res, next) => {
     res.status(200).json({
       status: "Success",
       message: "Log in successfully",
+      fullname: currentAccountByUsername.firstname + " " + currentAccountByUsername.lastname,
+      username: currentAccountByUsername.username,
       accessToken: accessToken,
     })
   }
