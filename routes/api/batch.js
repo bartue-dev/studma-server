@@ -16,7 +16,7 @@ router.route("/")
 
 router.route("/:batchId")
   .get(getBatch)
-  .update(updateBatch)
+  .put(updateBatch)
   .delete(deleteBatch)
 
 export { router }
