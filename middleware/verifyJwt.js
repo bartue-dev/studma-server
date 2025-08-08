@@ -12,7 +12,7 @@ export const verifyJwt = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
   if (!authHeader?.startsWith("Bearer")) {
-    const err = new CustomErr("Invalid authorization header", 401);
+    const err = new CustomErr("Invalid authorization header", 403);
     next(err);
     return;
   }
@@ -25,12 +25,12 @@ export const verifyJwt = (req, res, next) => {
     (err, decoded) => {
       if (err) {
         if (err?.name === "TokenExpiredError") {
-          const err = new CustomErr("Access Token Expired", 403);
+          const err = new CustomErr("Access Token Expired", 401);
           next(err);
           return;
         }
 
-        const customErr = new CustomErr("Invalid token", 403);
+        const customErr = new CustomErr("Invalid token", 401);
         next(customErr);
         return;
       }
