@@ -68,7 +68,6 @@ export const refreshToken = asyncHandler(async(req, res, next) => {
       res.status(200).json({
         status: "Sucess",
         fullname: getUser.firstname + " " + getUser.lastname,
-        username: getUser.username,
         accessToken: accessToken,
       });
     }
