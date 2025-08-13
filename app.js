@@ -59,7 +59,7 @@ app.use("/v1/logout", logoutRoute)
 app.use(verifyJwt)
 
 //api's
-app.use("/v1/student", studentRoute);
+app.use("/v1/students", studentRoute);
 app.use("/v1/grade", gradeRoute);
 app.use("/v1/section", sectionRoute);
 app.use("/v1/attendanceDate", attendanceDateRoute);
