@@ -5,7 +5,7 @@ import { studentMethods } from "../../model/queries/api/studentQueries.js";
 import CustomErr from "../../helper/customErr.js";
 
 export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res, next) => {
-  const { firstname, lastname } = req.body;
+  const { firstname, lastname, quarter } = req.body;
   const teacherId = req.user.id;
   const reqValidation = validationResult(req);
 
@@ -17,7 +17,7 @@ export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res
     });
   }
 
-  const studentData = await studentMethods.createStudent(firstname, lastname, teacherId);
+  const studentData = await studentMethods.createStudent(firstname, lastname, quarter, teacherId);
 
   if (!studentData) {
     const err = CustomErr("Failed to create student, custom error", 400);
@@ -79,7 +79,7 @@ export const getAllStudent = asyncHandler(async(req, res, next) => {
 
 export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res, next) => {
   const { studentId } = req.params;
-  const { firstname, lastname } = req.body;
+  const { firstname, lastname, quarter } = req.body;
   const validationRes = validationResult(req)
 
   if (!validationRes.isEmpty()) {
@@ -90,7 +90,7 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
     });
   }
 
-  const studentData = await studentMethods.updateStudent(studentId, firstname, lastname);
+  const studentData = await studentMethods.updateStudent(studentId, firstname, quarter, lastname);
 
   if (!studentData) {
     const err = new CustomErr("Failed to update student, custom error", 400)
