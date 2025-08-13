@@ -1,11 +1,12 @@
 import { prisma } from "../../prismaClient/prismaErrorHandler.js";
 
 class Student {
-  async createStudent(firstname, lastname, teacherId) {
+  async createStudent(firstname, lastname, quarter, teacherId) {
     return await prisma.student.create({
       data: { 
         firstname: firstname,
         lastname: lastname,
+        quarter: quarter,
         accountId: teacherId
       }
     });
@@ -18,7 +19,7 @@ class Student {
         grade: { select: { grade: true }},
         section: { select: { section: true }},
         batch: { select : { year: true }},
-        attendanceDate: { select: { date: true, status: true }},
+        attendanceDate: { select: { attendanceDateId: true ,date: true, status: true }},
       }
     });
   }
@@ -30,15 +31,15 @@ class Student {
         grade: { select: { grade: true }},
         section: { select: { section: true }},
         batch: { select : { year: true }},
-        attendanceDate: { select: { date: true, status: true }},
+        attendanceDate: { select: {attendanceDateId: true, date: true, status: true }},
       }
     });
   }
 
-  async updateStudent(studentId, firstname, lastname) {
+  async updateStudent(studentId, firstname, quarter, lastname) {
     return await prisma.student.update({
       where: { studentId: studentId },
-      data: { firstname: firstname, lastname: lastname}
+      data: { firstname: firstname, lastname: lastname, quarter: quarter}
     });
   }
 
