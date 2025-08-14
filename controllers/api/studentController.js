@@ -5,7 +5,14 @@ import { studentMethods } from "../../model/queries/api/studentQueries.js";
 import CustomErr from "../../helper/customErr.js";
 
 export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res, next) => {
-  const { firstname, lastname, quarter } = req.body;
+  const { 
+      firstname,
+      lastname,
+      grade,
+      section,
+      quarter, 
+      batch
+    } = req.body;
   const teacherId = req.user.id;
   const reqValidation = validationResult(req);
 
@@ -17,7 +24,15 @@ export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res
     });
   }
 
-  const studentData = await studentMethods.createStudent(firstname, lastname, quarter, teacherId);
+  const studentData = await studentMethods.createStudent(
+    firstname,
+    lastname,
+    Number(grade),
+    section,
+    quarter,
+    batch,
+    teacherId
+  );
 
   if (!studentData) {
     const err = CustomErr("Failed to create student, custom error", 400);
