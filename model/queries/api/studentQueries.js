@@ -1,12 +1,15 @@
 import { prisma } from "../../prismaClient/prismaErrorHandler.js";
 
 class Student {
-  async createStudent(firstname, lastname, quarter, teacherId) {
+  async createStudent(firstname, lastname, grade, section, quarter, batch, teacherId) {
     return await prisma.student.create({
       data: { 
         firstname: firstname,
         lastname: lastname,
+        grade: grade,
+        section: section,
         quarter: quarter,
+        batch: batch,
         accountId: teacherId
       }
     });
@@ -16,9 +19,6 @@ class Student {
     return await prisma.student.findUnique({
       where: { studentId: studentId },
       include: {
-        grade: { select: { grade: true }},
-        section: { select: { section: true }},
-        batch: { select : { year: true }},
         attendanceDate: { select: { attendanceDateId: true ,date: true, status: true }},
       }
     });
@@ -28,18 +28,23 @@ class Student {
     return await prisma.student.findMany({
       where: { accountId: teacherId },
       include: {
-        grade: { select: { grade: true }},
-        section: { select: { section: true }},
-        batch: { select : { year: true }},
         attendanceDate: { select: {attendanceDateId: true, date: true, status: true }},
       }
     });
   }
 
-  async updateStudent(studentId, firstname, quarter, lastname) {
+  async updateStudent(studentId, firstname, lastname, grade, section, quarter, batch, teacherId) {
     return await prisma.student.update({
       where: { studentId: studentId },
-      data: { firstname: firstname, lastname: lastname, quarter: quarter}
+      data: {
+        firstname: firstname,
+        lastname: lastname,
+        grade: grade,
+        section: section,
+        quarter: quarter,
+        batch: batch,
+        accountId: teacherId
+      }
     });
   }
 
