@@ -45,17 +45,17 @@ model Teacher {
   //accountId act as teacherId for queries cause the current user which is the account model is the teacher
   accountId String  @unique
 
-  student        Student[]
-  grade          Grade[]
-  section        Section[]
-  batch          Batch[]
   attendanceData AttendanceDate[]
+  Student        Student[]
 }
 
 model Student {
   studentId String       @id @default(uuid())
   firstname String
   lastname  String
+  grade     Int
+  section   String
+  batch     String
   quarter   QuarterValue @default(first)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -64,34 +64,9 @@ model Student {
   teacher   Teacher @relation(fields: [accountId], references: [accountId])
   accountId String
 
-  grade          Grade?
-  section        Section?
-  batch          Batch?
   attendanceDate AttendanceDate[]
-}
 
-model Grade {
-  gradeId String @id @default(uuid())
-  grade   String
-
-  //relation
-  student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
-  studentId String  @unique
-
-  teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
-  accountId String
-}
-
-model Section {
-  sectionId String @id @default(uuid())
-  section   String
-
-  //relation
-  student   Student @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
-  studentId String  @unique
-
-  teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
-  accountId String
+  @@unique([firstname, lastname])
 }
 
 model AttendanceDate {
@@ -107,20 +82,6 @@ model AttendanceDate {
   accountId String
 
   @@unique([studentId, date])
-}
-
-model Batch {
-  batchId String @id @default(uuid())
-  year    String
-
-  //relation
-  student   Student @relation(fields: [studentId], references: [studentId])
-  studentId String  @unique
-
-  teacher   Teacher @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
-  accountId String
-
-  @@unique([studentId, year])
 }
 
 //for AttendaceDate status field
