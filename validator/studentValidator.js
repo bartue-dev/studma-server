@@ -1,6 +1,9 @@
 import { body, param } from "express-validator";
 
 const isEmpty = "must not be empty";
+const isInt = "must be an integer"
+
+const quarter = ["first", "second", "third", "fourth"]
 
 export const validateCreateStudent = [
   body("firstname").trim()
@@ -9,6 +12,16 @@ export const validateCreateStudent = [
   body("lastname").trim()
     .notEmpty().withMessage(`Lastname ${isEmpty}`)
     .isLength({min: 2}).withMessage("Lastname must be atleast 2 characters or more"),
+  body("grade").trim()
+    .notEmpty().withMessage(`Grade ${isEmpty}`)
+    .isInt().withMessage(`Grade ${isInt}`),
+  body("section").trim()
+    .notEmpty().withMessage(`Section ${isEmpty}`),
+  body("quarter").trim()
+    .notEmpty().withMessage(`Quarter ${isEmpty}`)
+    .isIn(quarter).withMessage("Only first, second, third and fourth data is allowed"),
+  body("batch").trim()
+    .notEmpty().withMessage(`Batch ${isEmpty}`),
 ]
 
 export const validateStudentId = [
@@ -24,6 +37,16 @@ export const validateUpdateStudent = [
   body("lastname").trim()
     .notEmpty().withMessage(`Lastname ${isEmpty}`)
     .isLength({min: 2}).withMessage("Lastname must be atleast 2 characters or more"),
+  body("grade").trim()
+    .notEmpty().withMessage(`Grade ${isEmpty}`)
+    .isInt().withMessage(`Grade ${isInt}`),
+  body("section").trim()
+    .notEmpty().withMessage(`Section ${isEmpty}`),
+  body("quarter").trim()
+    .notEmpty().withMessage(`Quarter ${isEmpty}`)
+    .isIn(quarter).withMessage("Only first, second, third and fourth data is allowed"),
+  body("batch").trim()
+    .notEmpty().withMessage(`Batch ${isEmpty}`),
   param("studentId")
     .exists().withMessage("studentId doens't exist")
     .isUUID().withMessage("studentId is not valid UUID")
