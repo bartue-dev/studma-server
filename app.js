@@ -9,13 +9,10 @@ import errHandler from "./middleware/errorHandler.js";
 import { verifyJwt } from "./middleware/verifyJwt.js";
 import {
   attendanceDateRoute,
-  batchRoute,
-  gradeRoute,
   loginRoute,
   logoutRoute,
   refreshTokenRoute,
   registerRoute,
-  sectionRoute,
   studentRoute
 } from "./routes/index.js"
 
@@ -60,11 +57,7 @@ app.use(verifyJwt)
 
 //api's
 app.use("/v1/students", studentRoute);
-app.use("/v1/grade", gradeRoute);
-app.use("/v1/section", sectionRoute);
 app.use("/v1/attendanceDate", attendanceDateRoute);
-app.use("/v1/batch", batchRoute);
-
 
 // default route
 // handles error if the url cannot find
