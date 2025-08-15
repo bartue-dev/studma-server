@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "public"."AttendanceDate" ALTER COLUMN "status" DROP DEFAULT,
+ALTER COLUMN "date" DROP DEFAULT,
+ALTER COLUMN "date" SET DATA TYPE TEXT;
