@@ -79,7 +79,7 @@ export const getAttendanceDate = [validateAttendanceDateId ,asyncHandler(async(r
 })];
 
 export const updateAttendanceDate = [validateUpdateAttendanceDate, asyncHandler(async(req, res, next) => {
-  const { date, status} = req.body;
+  const { status } = req.body;
   const { attendanceDateId } = req.params;
   const validationRes = validationResult(req);
 
@@ -91,7 +91,7 @@ export const updateAttendanceDate = [validateUpdateAttendanceDate, asyncHandler(
     });
   }
 
-  const attendanceDateData = await attendanceDateMethods.updateAttendanceDate(date, status, attendanceDateId);
+  const attendanceDateData = await attendanceDateMethods.updateAttendanceDate(status, attendanceDateId);
 
   if (!attendanceDateId) {
     const err = new CustomErr("Failed to update attendance date, custom error", 400)
