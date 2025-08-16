@@ -75,7 +75,7 @@ export const getStudent = [validateStudentId, asyncHandler(async(req, res, next)
 })];
 
 export const getAllStudent = asyncHandler(async(req, res, next) => {
-  const teacherId = req.params.id;
+  const teacherId = req.user.id;
 
   const studentData = await studentMethods.getAllStudent(teacherId);
 
