@@ -28,11 +28,10 @@ class AttendanceDate {
     })
   }
 
-  async updateAttendanceDate(date, status, attendanceDateId) {
+  async updateAttendanceDate(status, attendanceDateId) {
     return await prisma.attendanceDate.update({
       where: { attendanceDateId: attendanceDateId },
       data: {
-        date: date,
         status: status
       }
     })
