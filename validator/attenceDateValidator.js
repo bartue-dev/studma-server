@@ -22,9 +22,6 @@ export const validateUpdateAttendanceDate = [
   param("attendanceDateId")
     .exists().withMessage("attendanceDateId doesnt exist")
     .isUUID().withMessage("attendanceDateId is not a valid UUID"),
-  body("date").trim()
-    .notEmpty().withMessage(`Attendance date ${isEmpty}`)
-    .isDate().withMessage("Invalid Date"),
   body("status").trim()
     .notEmpty().withMessage(`Status ${isEmpty}`)
     .isIn(status).withMessage("Status must be one of: PRESENT, ABSENT, LATE, EXCUSE")
