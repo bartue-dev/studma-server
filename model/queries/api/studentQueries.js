@@ -1,14 +1,13 @@
 import { prisma } from "../../prismaClient/prismaErrorHandler.js";
 
 class Student {
-  async createStudent(firstname, lastname, grade, section, quarter, batch, teacherId) {
+  async createStudent(firstname, lastname, grade, section, batch, teacherId) {
     return await prisma.student.create({
       data: { 
         firstname: firstname,
         lastname: lastname,
         grade: grade,
         section: section,
-        quarter: quarter,
         batch: batch,
         accountId: teacherId
       }
@@ -33,7 +32,7 @@ class Student {
     });
   }
 
-  async updateStudent(studentId, firstname, lastname, grade, section, quarter, batch, teacherId) {
+  async updateStudent(studentId, firstname, lastname, grade, section, batch, teacherId) {
     return await prisma.student.update({
       where: { studentId: studentId },
       data: {
@@ -41,7 +40,6 @@ class Student {
         lastname: lastname,
         grade: grade,
         section: section,
-        quarter: quarter,
         batch: batch,
         accountId: teacherId
       }
