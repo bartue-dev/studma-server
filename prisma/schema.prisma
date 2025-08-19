@@ -50,15 +50,14 @@ model Teacher {
 }
 
 model Student {
-  studentId String       @id @default(uuid())
+  studentId String   @id @default(uuid())
   firstname String
   lastname  String
   grade     Int
   section   String
   batch     String
-  quarter   QuarterValue @default(first)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   //relation
   teacher   Teacher @relation(fields: [accountId], references: [accountId])
@@ -90,11 +89,4 @@ enum Status {
   ABSENT
   LATE
   EXCUSE
-}
-
-enum QuarterValue {
-  first
-  second
-  third
-  fourth
 }
