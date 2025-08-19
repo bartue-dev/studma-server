@@ -17,9 +17,6 @@ export const validateCreateStudent = [
     .isInt().withMessage(`Grade ${isInt}`),
   body("section").trim()
     .notEmpty().withMessage(`Section ${isEmpty}`),
-  body("quarter").trim()
-    .notEmpty().withMessage(`Quarter ${isEmpty}`)
-    .isIn(quarter).withMessage("Only first, second, third and fourth data is allowed"),
   body("batch").trim()
     .notEmpty().withMessage(`Batch ${isEmpty}`),
 ]
@@ -42,9 +39,6 @@ export const validateUpdateStudent = [
     .isInt().withMessage(`Grade ${isInt}`),
   body("section").trim()
     .notEmpty().withMessage(`Section ${isEmpty}`),
-  body("quarter").trim()
-    .notEmpty().withMessage(`Quarter ${isEmpty}`)
-    .isIn(quarter).withMessage("Only first, second, third and fourth data is allowed"),
   body("batch").trim()
     .notEmpty().withMessage(`Batch ${isEmpty}`),
   param("studentId")
