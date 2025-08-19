@@ -37,7 +37,7 @@ export const login = asyncHandler(async(req, res, next) => {
         "username": currentAccountByUsername.username,
       },
       process.env.ACCESS_TOKEN_SECRET,
-      {expiresIn: "5min"}
+      {expiresIn: "2min"}
     );
 
     //refresh token
