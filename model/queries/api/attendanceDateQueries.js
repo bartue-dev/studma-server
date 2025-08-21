@@ -42,6 +42,24 @@ class AttendanceDate {
       where: { attendanceDateId: attendanceDateId }
     })
   }
+
+  async totalAbsent(studentId) {
+    return await prisma.attendanceDate.count({
+      where: { 
+        studentId: studentId,
+        status: "ABSENT"
+      }
+    })
+  }
+
+  async totalPresent(studentId) {
+    return await prisma.attendanceDate.count({
+      where: { 
+        studentId: studentId,
+        status: "PRESENT"
+      }
+    })
+  }
 }
 
 export const attendanceDateMethods = new AttendanceDate()
