@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import { validateCreateStudent, validateStudentId, validateUpdateStudent } from "../../validator/studentValidator.js";
 import { validationResult } from "express-validator";
 import { studentMethods } from "../../model/queries/api/studentQueries.js";
+import { attendanceDateMethods } from "../../model/queries/api/attendanceDateQueries.js";
 import CustomErr from "../../helper/customErr.js";
 
 export const createStudent = [validateCreateStudent ,asyncHandler(async(req, res, next) => {
@@ -81,6 +82,14 @@ export const getAllStudent = asyncHandler(async(req, res, next) => {
     const err = new CustomErr("Failed to retrieve student, custom error", 400);
     next(err);
     return
+  }
+
+  for (const student of studentData) {
+    const totalPresent = await attendanceDateMethods.totalPresent(student.studentId);
+    const totalAbsent = await attendanceDateMethods.totalAbsent(student.studentId);
+
+    student["totalPresent"] = totalPresent
+    student["totalAbsent"] = totalAbsent
   }
 
   res.status(200).json({
