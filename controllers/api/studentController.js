@@ -101,7 +101,13 @@ export const getAllStudent = asyncHandler(async(req, res, next) => {
 
 export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res, next) => {
   const { studentId } = req.params;
-  const { firstname, lastname } = req.body;
+  const { 
+    firstname,
+    lastname,
+    grade,
+    section,
+    batch
+  } = req.body;
   const validationRes = validationResult(req)
 
   if (!validationRes.isEmpty()) {
@@ -112,7 +118,14 @@ export const updateStudent = [validateUpdateStudent, asyncHandler(async(req, res
     });
   }
 
-  const studentData = await studentMethods.updateStudent(studentId, firstname, lastname);
+  const studentData = await studentMethods.updateStudent(
+    studentId,
+    firstname,
+    lastname,
+    Number(grade),
+    section,
+    batch
+  );
 
   if (!studentData) {
     const err = new CustomErr("Failed to update student, custom error", 400)
