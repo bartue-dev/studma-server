@@ -32,7 +32,7 @@ class Student {
     });
   }
 
-  async updateStudent(studentId, firstname, lastname, grade, section, batch, teacherId) {
+  async updateStudent(studentId, firstname, lastname, grade, section, batch) {
     return await prisma.student.update({
       where: { studentId: studentId },
       data: {
@@ -40,8 +40,7 @@ class Student {
         lastname: lastname,
         grade: grade,
         section: section,
-        batch: batch,
-        accountId: teacherId
+        batch: batch
       }
     });
   }
